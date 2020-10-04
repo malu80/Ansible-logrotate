@@ -1,0 +1,21 @@
+- hosts: {{ Node01 }}
+  roles:
+    - role: logging
+      vars:
+        logrotate_entries:
+          - name: nginx
+            paths:
+              - /var/log/nginx/*.log
+            options:
+              - weekly
+              - compress
+          - name: rsyslog
+            paths:
+              - /var/log/kern.log
+              - /var/log/message
+              - /var/log/debug
+            options:
+              - weekly
+              - rotate 4
+              - compress
+              - size 100M
